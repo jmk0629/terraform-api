@@ -26,7 +26,7 @@ Spring Boot를 활용하여 Terraform Cloud API를 통해 OpenStack 가상서버
 2. **OpenStack 접근 정보**
    - OpenStack 서버: `192.168.33.8`
    - 계정: `admin`
-   - 비밀번호: `3hspassw0rd`
+   - 비밀번호: ``
 
 ## ⚙️ 설정
 
