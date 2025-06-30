@@ -1,0 +1,8 @@
+D:\terraformAPI\src\main\java\com\example\terraformapi\service\TerraformService.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\TerraformApiApplication.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\repository\InstanceRepository.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\dto\InstanceRequest.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\controller\InstanceController.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\service\InstanceService.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\controller\WebController.java
+D:\terraformAPI\src\main\java\com\example\terraformapi\model\OpenStackInstance.java

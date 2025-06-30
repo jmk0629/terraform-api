@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: terraform-api
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  thymeleaf:
+    cache: false
+
+terraform:
+  cloud:
+    api-url: https://app.terraform.io/api/v2
+    organization: ${TF_ORGANIZATION:your-organization-name}
+    workspace-id: ${TF_WORKSPACE_ID:your-workspace-id}
+    token: ${TF_TOKEN:your-terraform-token-here}
+
+openstack:
+  auth-url: ${OPENSTACK_AUTH_URL:http://your-openstack-server:5000/v3}
+  region: ${OPENSTACK_REGION:RegionOne}
+  domain-name: ${OPENSTACK_DOMAIN:default}
+  tenant-id: ${OPENSTACK_TENANT_ID:your-tenant-id}
+  username: ${OPENSTACK_USERNAME:your-username}
+  password: ${OPENSTACK_PASSWORD:your-password} 

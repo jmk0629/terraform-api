@@ -1,0 +1,9 @@
+com\example\terraformapi\repository\InstanceRepository.class
+com\example\terraformapi\controller\WebController.class
+com\example\terraformapi\controller\InstanceController.class
+com\example\terraformapi\dto\InstanceRequest.class
+com\example\terraformapi\service\TerraformService.class
+com\example\terraformapi\TerraformApiApplication.class
+com\example\terraformapi\model\OpenStackInstance$InstanceStatus.class
+com\example\terraformapi\service\InstanceService.class
+com\example\terraformapi\model\OpenStackInstance.class
