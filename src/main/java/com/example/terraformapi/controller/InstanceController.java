@@ -40,4 +40,14 @@ public class InstanceController {
         instanceService.deleteInstance(id);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/openstack/{serverId}")
+    public ResponseEntity<String> deleteInstanceByServerId(@PathVariable String serverId) {
+        try {
+            instanceService.deleteInstanceByServerId(serverId);
+            return ResponseEntity.ok("서버 " + serverId + " 삭제 완료");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("서버 삭제 실패: " + e.getMessage());
+        }
+    }
 } 

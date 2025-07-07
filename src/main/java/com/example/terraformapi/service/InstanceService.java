@@ -55,6 +55,8 @@ public class InstanceService {
         // 동적으로 tfvars 파일 생성 및 git push
         try {
             updateTfvarsAndPush(instance);
+            log.info("Git push 완료, Terraform Cloud 동기화 대기 중...");
+            Thread.sleep(3000); // 3초 대기 (더 긴 대기시간)
         } catch (Exception e) {
             gitSuccess = false;
             log.error("terraform.tfvars git 반영 실패, git 없이 바로 API 실행", e);
@@ -197,4 +199,36 @@ public class InstanceService {
             throw new RuntimeException("명령 실행 실패: " + String.join(" ", command));
         }
     }
+
+    /**
+     * OpenStack 서버 ID를 사용하여 Terraform API로 서버를 삭제합니다.
+     */
+    public void deleteInstanceByServerId(String serverId) {
+        log.info("Terraform API를 통한 서버 삭제 시작: {}", serverId);
+        
+        try {
+            // Terraform Cloud API를 통해 destroy run 생성
+            String destroyRunId = terraformService.createDestroyRun(serverId);
+            log.info("Terraform destroy run 생성 완료: {}", destroyRunId);
+            
+            // DB에서 해당 서버 정보도 삭제 (instanceId가 일치하는 경우)
+            List<OpenStackInstance> instances = instanceRepository.findAll();
+            for (OpenStackInstance instance : instances) {
+                if (serverId.equals(instance.getInstanceId())) {
+                    instance.setStatus(OpenStackInstance.InstanceStatus.DELETING);
+                    instanceRepository.save(instance);
+                    log.info("DB에서 인스턴스 상태를 DELETING으로 변경: {}", instance.getInstanceName());
+                    break;
+                }
+            }
+            
+            log.info("Terraform API를 통한 서버 삭제 요청 완료: {}", serverId);
+            
+        } catch (Exception e) {
+            log.error("Terraform API를 통한 서버 삭제 실패: {}", serverId, e);
+            throw new RuntimeException("Terraform API를 통한 서버 삭제 실패: " + e.getMessage(), e);
+        }
+    }
+
+
 } 

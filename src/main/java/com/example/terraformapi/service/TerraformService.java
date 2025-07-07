@@ -160,4 +160,44 @@ public class TerraformService {
             throw new RuntimeException("Terraform 실행 취소 실패", e);
         }
     }
+
+    /**
+     * Terraform Cloud에서 destroy run을 생성합니다.
+     */
+    public String createDestroyRun(String serverId) {
+        String url = apiUrl + "/runs";
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("application/vnd.api+json"));
+        headers.setBearerAuth(token);
+
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("data", Map.of(
+            "type", "runs",
+            "attributes", Map.of(
+                "message", "Destroy OpenStack instance: " + serverId,
+                "is-destroy", true,
+                "auto-apply", true
+            ),
+            "relationships", Map.of(
+                "workspace", Map.of(
+                    "data", Map.of(
+                        "type", "workspaces",
+                        "id", workspaceId
+                    )
+                )
+            )
+        ));
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+        
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+            Map<String, Object> data = (Map<String, Object>) response.getBody().get("data");
+            return (String) data.get("id");
+        } catch (Exception e) {
+            log.error("Terraform destroy 실행 생성 실패", e);
+            throw new RuntimeException("Terraform destroy 실행 생성 실패", e);
+        }
+    }
 } 
