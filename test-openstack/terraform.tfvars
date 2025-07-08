@@ -1,4 +1,4 @@
-instance_name = "terraform-vm-1234"
+instance_name = "terraform-vm-11111"
 image_id = "8ed84cb4-0533-4efc-a4bc-5bbd3dc2a787"
 flavor_id = "ddbc4ef2-4575-44d7-92fc-c7afc41ed4f9"
 network_name = "test"
