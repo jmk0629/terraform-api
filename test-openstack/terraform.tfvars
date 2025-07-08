@@ -1,0 +1,5 @@
+instance_name = "terraform-vm-123456"
+image_id = "8ed84cb4-0533-4efc-a4bc-5bbd3dc2a787"
+flavor_id = "ddbc4ef2-4575-44d7-92fc-c7afc41ed4f9"
+network_name = "test"
+key_pair = "test"
